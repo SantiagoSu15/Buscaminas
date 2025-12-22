@@ -151,11 +151,14 @@ function revelarSinVecinos(cell : Celda,table: Tablero){
         if(fila>= 0 && fila <= table.celdas.length && columna >= 0 && columna<= columnas){
             celdaVecina.element.classList.add("open");
             const n = verificarVecinos(table,celdaVecina);
-            console.log("vecinos:"+n);
             if(n===0 && !celdaVecina.revelado){
                 celdaVecina.revelado = true;
                 revelarSinVecinos(celdaVecina,table);
             }   
+            celdaVecina.revelado = true;
+
+            verificarVictoria(table)
+
         };
            
     };
@@ -170,6 +173,7 @@ function verificarVictoria(table:Tablero):boolean{
     const cantidadMinas = table.celdas.flat().filter(m=> m.mina).length;
     const celdasSinRevelar = table.celdas.flat().filter(c => !c.revelado).length;
 
+    console.log("Minas:" + cantidadMinas, "Sin Revelear:" + celdasSinRevelar)
     const victoria : boolean = cantidadMinas === celdasSinRevelar;
     if(victoria){
         alert("Ganaste");

@@ -4,7 +4,6 @@ import { jugar } from "./tablero.js";
 let dificultadSeleccionada: Dificultad = Dificultad.Normal;
 
 export function comenzarJuego(dificultad: Dificultad){
-    console.log("comenzando")
     dificultadSeleccionada = dificultad;
     let tablero = document.getElementById("board");
     if(tablero !== null){
@@ -89,6 +88,7 @@ export function crearDificultad(){
 
 function mapDificultad(difi: string): Dificultad | undefined {
     const aString: [string, Dificultad][] = [
+        ["Super",Dificultad.Super],
         ["Facil", Dificultad.Facil],
         ["Normal", Dificultad.Normal],
         ["Dificil", Dificultad.Dificil]
