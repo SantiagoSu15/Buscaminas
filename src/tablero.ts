@@ -1,6 +1,6 @@
 import type { Celda } from "./celda.js";
 import { Dificultad } from "./dificultad.js";
-
+import {comenzarJuego,reiniciarPartida} from "./main.js"
 
 export type Tablero = {
   celdas: Celda[][]; 
@@ -163,19 +163,7 @@ function revelarSinVecinos(cell : Celda,table: Tablero){
 
 };
 
-function reiniciarPartida(){
-    let tablero = document.getElementById("board");
-    if(tablero !== null){
-        tablero.remove();
-    }
-    const el = document.createElement("button");
-    el.id = "comenzarJuego";
-    el.textContent = "Comenzar Juego"
-    el.addEventListener("click", function() {
-        comenzarJuego();
-    });
-    document.body.appendChild(el);
-}
+
 
 
 function verificarVictoria(table:Tablero):boolean{
@@ -233,15 +221,3 @@ export function jugar(difi: Dificultad): Tablero{
     return table;
 }
 
-function comenzarJuego(){
-    let tablero = document.getElementById("board");
-    if(tablero !== null){
-        tablero.remove();
-    }
-    jugar(Dificultad.Normal);
-    var div = document.getElementById("comenzarJuego");
-    div?.remove();
-}
-
-
-(window as any).comenzarJuego = comenzarJuego;

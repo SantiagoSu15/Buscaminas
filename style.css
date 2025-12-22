@@ -45,10 +45,10 @@ body{
     transition: all .5s ease;
   }
 
-  cell:hover {
-    background-color: #001F3F;
-}
   
+  
+
+
   #board .cell:nth-child(even) {
     background-color: #262d2e;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -60,6 +60,9 @@ body{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
   }
+  
+  
+
 
   #board .cell.open:not(.mine) {
     cursor: default;

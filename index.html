@@ -8,7 +8,19 @@
 </head>
 
 <body>
-  <button id="comenzarJuego" onclick="comenzarJuego()">Comenzar Juego</button>
+  <!-- El botón "Comenzar Juego" será creado dinámicamente, así que lo eliminamos del HTML -->
+  
+  <!-- Script que carga main.js (tu código TypeScript transpilado a JavaScript) -->
   <script src="dist/main.js" type="module" defer></script>
+
+  <!-- Ejecutamos la función `crearDificultad` una vez que el DOM y los scripts estén listos -->
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      // Llamamos a la función `crearDificultad` que se encuentra en main.js
+      if (typeof crearDificultad === 'function') {
+        crearDificultad();
+      }
+    });
+  </script>
 </body>
 </html>
