@@ -238,7 +238,7 @@ function comenzarJuego(){
     if(tablero !== null){
         tablero.remove();
     }
-    jugar(Dificultad.Facil);
+    jugar(Dificultad.Normal);
     var div = document.getElementById("comenzarJuego");
     div?.remove();
 }
