@@ -1,7 +1,11 @@
 import { Dificultad } from "./dificultad.js";
 import { jugar } from "./tablero.js";
+import { relojDificultad, relojNormal } from "./tiempo.js";
+
 
 let dificultadSeleccionada: Dificultad = Dificultad.Normal;
+let tiempoButton: string = "SinTiempo";
+
 
 export function comenzarJuego(dificultad: Dificultad){
     dificultadSeleccionada = dificultad;
@@ -11,7 +15,9 @@ export function comenzarJuego(dificultad: Dificultad){
     }
     jugar(dificultad);
 
-
+    console.log(tiempoButton)    
+    botonTiempo();
+    reloj();
     var div = document.getElementById("comenzarJuego");
     div?.remove();
 }
@@ -20,12 +26,61 @@ export function comenzarJuego(dificultad: Dificultad){
 (window as any).comenzarJuego = comenzarJuego;
 
 
+function reloj(){
+    const celdas = document.querySelectorAll(".cell").length;
+     tiempoButton === "SinTiempo" ?  relojNormal() : relojDificultad(celdas);
+
+}
+
+
+
+function botonTiempo() {
+    const verificacion = document.getElementById("tiempoButton");
+    if (verificacion !== null) return;
+
+    const difiTiempo = document.createElement("button");
+    difiTiempo.id = "tiempoButton";
+    difiTiempo.classList.add(tiempoButton);
+
+    tiempoButton === "SinTiempo" ?  difiTiempo.textContent = "Cambiar A Modo Con Tiempo" : difiTiempo.textContent = "Cambiar A Modo Sin Tiempo"
+
+
+    document.body.appendChild(difiTiempo);
+
+    difiTiempo.addEventListener("click", () => {
+        const t = difiTiempo.classList.toggle("SinTiempo");
+        tiempoButton = t ? "SinTiempo" : "ConTiempo";
+
+        difiTiempo.textContent = t
+            ? "Cambiar A Modo Con Tiempo"
+            : "Cambiar A Modo Sin Tiempo";
+
+            comenzarJuego(dificultadSeleccionada);
+
+        const celdas = document.querySelectorAll(".cell").length;
+
+        if (t) {
+            relojNormal();
+        } else {
+            relojDificultad(celdas);
+        }
+
+    });
+}
+
 
 export function reiniciarPartida() {
     let tablero = document.getElementById("board");
     if (tablero !== null) {
         tablero.remove();
     }
+
+
+    let reloj = document.getElementById("reloj");
+    reloj?.remove();
+
+    let botonTiempo = document.getElementById("tiempoButton");
+    botonTiempo?.remove();
 
     const el = document.createElement("button");
     el.id = "comenzarJuego";
@@ -82,6 +137,7 @@ export function crearDificultad(){
 }
 
 (window as any).crearDificultad = crearDificultad;
+
 
 
 

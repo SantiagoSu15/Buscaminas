@@ -1,7 +1,8 @@
 export type Celda = {
     mina: boolean;
     revelado: boolean;
+    bandera: boolean;
     element: HTMLDivElement;
-    fila: number,
+    fila: number;
     columna: number
 };

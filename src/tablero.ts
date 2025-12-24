@@ -1,6 +1,6 @@
 import type { Celda } from "./celda.js";
 import { Dificultad } from "./dificultad.js";
-import {comenzarJuego,reiniciarPartida} from "./main.js"
+import { evetosTodos } from "./eventos.js";
 
 export type Tablero = {
   celdas: Celda[][]; 
@@ -27,6 +27,7 @@ function crearTablero(difi: Dificultad): Tablero {
             const cell: Celda = {
                 mina: false,
                 revelado: false,
+                bandera:false,
                 element: el,
                 fila: i,
                 columna:j
@@ -86,7 +87,7 @@ function ponerMinas(table: Tablero){
 
 
 
-function verificarVecinos(table:Tablero,cell :Celda):number{
+export function verificarVecinos(table:Tablero,cell :Celda):number{
     let posicion: [number,number] = [cell.fila,cell.columna]
     let minasVecinas :number = 0;
 
@@ -125,7 +126,7 @@ function verificarVecinos(table:Tablero,cell :Celda):number{
     return minasVecinas;
 };
 
-function revelarSinVecinos(cell : Celda,table: Tablero){
+export function revelarSinVecinos(cell : Celda,table: Tablero){
     let posicion: [number,number] = [cell.fila,cell.columna]
 
     const posicionesVecinas = [
@@ -169,7 +170,7 @@ function revelarSinVecinos(cell : Celda,table: Tablero){
 
 
 
-function verificarVictoria(table:Tablero):boolean{
+export function verificarVictoria(table:Tablero):boolean{
     const cantidadMinas = table.celdas.flat().filter(m=> m.mina).length;
     const celdasSinRevelar = table.celdas.flat().filter(c => !c.revelado).length;
 
@@ -182,46 +183,17 @@ function verificarVictoria(table:Tablero):boolean{
 }
 
 
-function oprimirCelda(cell : Celda,table:Tablero){
-    if(cell.revelado) return;
-    cell.revelado = true;
-    cell.element.classList.add("open");
-
-    if( verificarVictoria(table)){
-        reiniciarPartida();
-    }else{
-        if(cell.mina){
-            cell.element.classList.add("mine");
-            alert("Perdiste");
-            reiniciarPartida();
-        }else{
-            const minasVecinas :number = verificarVecinos(table,cell);
-            if(minasVecinas===0){
-                revelarSinVecinos(cell,table)
-            }else{
-                cell.element.textContent = minasVecinas.toString();
-            }
-        }
-    }
-};
 
 
 
 
 
-function darEventoCeldas(table:Tablero){
-    table.celdas.forEach((fila)=>{
-        fila.forEach((c)=>{
-            c.element.addEventListener('click',()=>oprimirCelda(c,table) )
-        });
-    });
 
-};
 
 export function jugar(difi: Dificultad): Tablero{
     const table: Tablero = crearTablero(difi);
     ponerMinas(table);
-    darEventoCeldas(table);
+    evetosTodos(table);
     return table;
 }
 

@@ -85,7 +85,10 @@ body{
   
   #board .cell.mine {
     background: red;
+  }
 
+  #board .cell.bandera {
+    background: green;
   }
 
   
