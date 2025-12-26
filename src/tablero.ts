@@ -33,7 +33,6 @@ function crearTablero(difi: Dificultad): Tablero {
                 columna:j
             };
 
-            //el.onclick = () => oprimirCelda(cell);
 
             fila.push(cell);
             elementoTablero.appendChild(el); 
@@ -176,9 +175,7 @@ export function verificarVictoria(table:Tablero):boolean{
 
     console.log("Minas:" + cantidadMinas, "Sin Revelear:" + celdasSinRevelar)
     const victoria : boolean = cantidadMinas === celdasSinRevelar;
-    if(victoria){
-        alert("Ganaste");
-    }
+   
     return victoria;
 }
 

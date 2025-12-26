@@ -61,12 +61,11 @@ function oprimirCelda(cell : Celda,table:Tablero){
         cell.element.classList.add("open");
     
         if( verificarVictoria(table)){
-            reiniciarPartida();
+            anuncioEvento("Ganaste ")
         }else{
             if(cell.mina){
                 cell.element.classList.add("mine");
-                alert("Perdiste");
-                reiniciarPartida();
+                anuncioEvento("Perdiste")
             }else{
                 const minasVecinas :number = verificarVecinos(table,cell);
                 if(minasVecinas===0){
@@ -79,6 +78,47 @@ function oprimirCelda(cell : Celda,table:Tablero){
     }
    
 };
+
+
+export function anuncioEvento(s :string){
+    console.log("evento final")
+    let tablero = document.getElementById("board");
+    if(tablero !== null){
+        tablero.remove();
+    }
+    const contenedor : HTMLElement = document.createElement("div");
+    contenedor.id = "contenedor"
+    const resultado : HTMLElement = document.createElement("p");
+    resultado.id = "resultado";
+    resultado.textContent = s;
+    const boton : HTMLElement = document.createElement("button");
+    boton.id = "botonFinal";
+    boton.textContent = "Volver a jugar";
+
+    contenedor.appendChild(resultado);
+    contenedor.appendChild(boton);
+    document.body.appendChild(contenedor); 
+
+    boton.focus();
+
+    const reiniciar = () => {
+        reiniciarPartida();
+        contenedor.remove();
+    };
+
+    boton.addEventListener("click", reiniciar);
+
+
+    const barraEspacio = (e: KeyboardEvent) => {
+        if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
+            e.preventDefault();
+            reiniciar();
+            document.removeEventListener("keydown", barraEspacio);
+        }
+    };
+
+    document.addEventListener("keydown", barraEspacio);
+}
 
 document.addEventListener('contextmenu', function(event) {
     event.preventDefault(); 

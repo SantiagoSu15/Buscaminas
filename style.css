@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:900');
+
+
 body{
   display: grid;
   place-items: center;
   height: 100vh;
   background-color: #D9D7B6;
   margin: 0;
+  font-family: 'Source Code Pro', monospace;
+}
+
+* {
+  font-family: inherit;
 }
 
 #board {
@@ -98,29 +106,256 @@ body{
     top: 20px;
     right: 20px;
     z-index: 1000;
-    padding: 10px 20px;
-    background-color: #fff;
+    padding: 0.25em 0.25em;
+    background-color: #C9C5B1;
     border: 2px solid #1f2729;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
+    text-transform: uppercase;
     font-weight: bold;
-
+    transform-style:preserve-3d ;
+    transition: transform 150ms cubic-bezier(0,0,0.58,1),
+    background 150ms cubic-bezier(0,0,0.58,1);
   }
   
   #dificultadButtom:hover {
-    background-color: #f0f0f0;
+    background-color: #e0ddd3;
+    transform: translate(0,0.25em);
+  }
+
+  #dificultadButtom:active {
+    background-color: #f0eee7;
+    transform: translate(0,0.75em);
+  }
+
+  #dificultadButtom::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 85%;
+    inset: 0;
+    background-color: #b9b6ac;
+    border-radius: inherit;
+    box-shadow: 0 0 0 1.5px #0A1517, 0 0.25em 0 0 #202829;
+    transform: translate3d(0,0.75em, -1em);
+    transition: transform 150ms cubic-bezier(0,0,0.58,1),
+    box-shadow 150ms cubic-bezier(0,0,0.58,1);
+  }
+
+  #dificudificultadButtom:hover::before{
+    box-shadow: 0 0 0 2px #262d2e, 0 0.5em 0 0 #202829;
+    transform: translate3d(0,0.5em, -1em);
+  }
+
+  #dificultadButtom:active::before {
+    box-shadow: 0 0 0 2px #262d2e, 0 0.5em 0 0 #202829;
+    transform: translate3d(0,0, -1em);
   }
   
+
   #dificultadButtom + select {
     position: fixed;
     top: 65px;
     right: 20px;
     z-index: 1000;
     padding: 8px;
-    background-color: #fff;
+    background-color: #e0ddd3;
     border: 2px solid #1f2729;
     border-radius: 5px;
     font-size: 14px;
     min-width: 120px;
   }
+
+
+
+  #contenedor {
+    width: 50vmin; 
+    aspect-ratio: 2/1; 
+    border: 5px solid #202829; 
+    border-radius: 15px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    background-color: #D9D7B6; 
+    text-align: center; 
+    padding: 20px;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 10; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  #resultado {
+    font-size: 200%;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  #botonFinal {
+    align-items: center;
+    appearance: none;
+    background-color: #EDE8D0;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#C9C5B1 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    display: inline-flex;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 100%;
+  }
+  
+  #botonFinal:focus {
+    box-shadow: #C9C5B1 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #C9C5B1 0 -3px 0 inset;
+  }
+  
+  #botonFinal:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #C9C5B1 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+  
+  #botonFinal:active {
+    box-shadow: #C9C5B1 0 3px 7px inset;
+    transform: translateY(2px);
+  }
+
+
+
+
+#tiempoButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  align-self: center;
+  background-color: #EDE8D0;
+  background-image: none;
+  background-position: 0 90%;
+  background-repeat: repeat no-repeat;
+  background-size: 4px 3px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+  box-sizing: border-box;
+  color: #41403e;
+  cursor: pointer;
+  display: inline-block;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  line-height: 23px;
+  outline: none;
+  padding: clamp(0.5rem, 2vw, 0.75rem);
+  text-decoration: none;
+  transition: all 235ms ease-in-out;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+#tiempoButton:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+}
+
+#tiempoButton:focus {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+
+
+#reloj {
+  position: fixed;
+  top: 80px; 
+  left: 20px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #C9C5B1 0%, #EDE8D0 100%);
+  padding: 15px 30px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #41403e;
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+  font-size: clamp(20px, 5vw, 32px);
+  font-weight: bold;
+  color: #41403e;
+  min-width: clamp(60px, 15vw, 80px);
+  text-align: center;
+  transition: all 235ms ease-in-out;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+
+#reloj:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+}
+
+#reloj:focus {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+@keyframes numeroAbajo {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes numeroArriba {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* animaciones */
+#spanReloj.tick-down {
+  animation: numeroAbajo 0.4s ease;
+}
+
+#spanReloj.tick-up {
+  animation: numeroArriba 0.4s ease;
+}
+

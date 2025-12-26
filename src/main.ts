@@ -82,15 +82,8 @@ export function reiniciarPartida() {
     let botonTiempo = document.getElementById("tiempoButton");
     botonTiempo?.remove();
 
-    const el = document.createElement("button");
-    el.id = "comenzarJuego";
-    el.textContent = "Comenzar Juego";
+    comenzarJuego(dificultadSeleccionada); 
 
-    el.addEventListener("click", function() {
-        comenzarJuego(dificultadSeleccionada); 
-    });
-
-    document.body.appendChild(el);
 }
 
 

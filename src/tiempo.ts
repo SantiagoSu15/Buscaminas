@@ -1,4 +1,5 @@
 import {reiniciarPartida} from "./main.js"
+import {anuncioEvento} from "./eventos.js"
 
 function crearRelojHtml(): HTMLElement{   
     const r = document.getElementById("reloj");
@@ -24,15 +25,25 @@ function crearReloj(r:HTMLElement,segundos:number,difi : Boolean){ // clase relo
     // metodos
     function iniciar(){  
 
+        let spa  = document.createElement("span");
+        spa.id = "spanReloj";
+        spa.textContent = String(Math.trunc(s));
+        r.appendChild(spa);
+
         if(intervalId !== null) return;
         //si no se guarda en variable se pueden generar infintos setInterval
         intervalId = window.setInterval(()=>{
             b ? s++ : s--
-             r.textContent = String(Math.trunc(s));
+            
+            spa.classList.remove('tick-up', 'tick-down');
+            void spa.offsetWidth; 
+            
+            spa.classList.add(b ? 'tick-up' : 'tick-down');
+            spa.textContent = String(Math.trunc(s));
 
              if(s ===0){
-                alert("Perdiste");
-                reiniciarPartida();
+                anuncioEvento("Sin tiempo Perdiste")
+                detener();
              }
         },1000);
     };
@@ -41,7 +52,8 @@ function crearReloj(r:HTMLElement,segundos:number,difi : Boolean){ // clase relo
     function reiniciar() {
         detener();
         s = segundos;
-        r.textContent = String(s);
+        const todosLosSpans = r.querySelectorAll('span');
+        todosLosSpans.forEach(span => r.removeChild(span));
         iniciar();
     }
 
